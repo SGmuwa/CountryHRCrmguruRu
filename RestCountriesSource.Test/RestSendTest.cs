@@ -36,9 +36,7 @@ namespace RestCountriesSource.Test
         [Theory]
         [InlineData(0, "russia")]
         [InlineData(1, "uk")]
-        public void Test1(int i, string rest)
-        {
-            Assert.Equal(infosExpect[i], getter.GetCountryInfo(rest));
-        }
+        public void SendRequestTest(int i, string rest)
+            => Assert.Equal(infosExpect[i], getter.GetCountryInfo(rest));
     }
 }
