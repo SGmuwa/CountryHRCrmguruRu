@@ -29,11 +29,13 @@ namespace RestCountriesSource.Test
 
         private List<ICountryInfo> infosExpect = new List<ICountryInfo>()
         {
-            new CountryInfo("Russian Federation", "RU", "Moscow", 1.7124442E7, 146599183, "Europe")
+            new CountryInfo("Russian Federation", "RU", "Moscow", 1.7124442E7, 146599183, "Europe"),
+            new CountryInfo("Ukraine", "UA", "Kiev", 603700.0, 42692393, "Europe")
         };
 
         [Theory]
         [InlineData(0, "russia")]
+        [InlineData(1, "uk")]
         public void Test1(int i, string rest)
         {
             Assert.Equal(infosExpect[i], getter.GetCountryInfo(rest));
