@@ -27,7 +27,7 @@ using UserCountryInterfaces;
 
 namespace RestCountriesSource
 {
-    public class GetterCountries : IGetterCountry
+    public class GetterCountry : IGetterCountry
     {
         private static readonly HttpClient client = new HttpClient();
         private const string URI = "https://restcountries.eu/rest/v2/name/";

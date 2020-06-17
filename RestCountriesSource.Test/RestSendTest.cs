@@ -25,7 +25,7 @@ namespace RestCountriesSource.Test
 {
     public class RestSendTest
     {
-        private GetterCountries getter = new GetterCountries();
+        private GetterCountry getter = new GetterCountry();
 
         private List<ICountryInfo> infosExpect = new List<ICountryInfo>()
         {
