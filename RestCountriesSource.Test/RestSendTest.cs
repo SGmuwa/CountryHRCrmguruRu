@@ -35,8 +35,21 @@ namespace RestCountriesSource.Test
 
         [Theory]
         [InlineData(0, "russia")]
+        [InlineData(0, "RUSSIA")]
+        [InlineData(0, "Russia")]
+        [InlineData(0, "Russian Federation")]
         [InlineData(1, "uk")]
+        [InlineData(1, "ukraine")]
+        [InlineData(1, "Ukraine")]
         public void SendRequestTest(int i, string rest)
             => Assert.Equal(infosExpect[i], getter.GetCountryInfo(rest));
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        [InlineData("0")]
+        [InlineData("RandomNameRealRealRandom")]
+        public void SendRequestErrorTest(string rest)
+            => Assert.Null(getter.GetCountryInfo(rest));
     }
 }
