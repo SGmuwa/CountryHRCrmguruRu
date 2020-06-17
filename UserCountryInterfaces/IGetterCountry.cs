@@ -17,19 +17,18 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Generic;
-
 namespace UserCountryInterfaces
 {
     /// <summary>
-    /// Interface of gets info about countries.
+    /// Interface of method of get info about country.
     /// </summary>
-    public interface IGetterCountries
+    public interface IGetterCountry
     {
         /// <summary>
-        /// Get all countries from somewhere.
+        /// Get current country info by 
         /// </summary>
-        /// <returns>Enumeration of countries.</returns>
-        IEnumerable<ICountryInfo> GetCountries();
+        /// <param name="CountryName">Name of country.</param>
+        /// <returns>Instance of info about country.</returns>
+        ICountryInfo GetCountryInfo(string CountryName);
     }
 }
