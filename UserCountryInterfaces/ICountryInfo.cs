@@ -1,6 +1,6 @@
 /*
     CountryHRCrmguruRu.
-    Copyright (C) 2020  
+    Copyright (C) 2020
     Mikhail Pavlovich Sidorenko (motherlode.muwa@gmail.com)
 
     This program is free software: you can redistribute it and/or modify
