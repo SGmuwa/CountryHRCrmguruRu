@@ -27,10 +27,12 @@ namespace RestCountriesSource
     {
         public CountryInfo(string name) => Name = name;
 
+        public CountryInfo() => Name = "";
+
         public CountryInfo(string name, string code, string capital, double? area, ulong? population, string region)
             => (Name, Code, Capital, Area, Population, Region) = (name, code, capital, area, population, region);
 
-        private string name;
+        private string name = "";
 
         [JsonPropertyName("name")]
         public string Name { get => name; set => name = value ?? throw new ArgumentNullException(nameof(Name)); }
@@ -49,5 +51,16 @@ namespace RestCountriesSource
 
         [JsonPropertyName("region")]
         public string Region { get; set; }
+
+        public override bool Equals(object obj)
+            => obj is ICountryInfo info
+            && Name == info.Name
+            && Code == info.Code
+            && Capital == info.Capital
+            && Area == info.Area
+            && Population == info.Population
+            && Region == info.Region;
+
+        public override int GetHashCode() => HashCode.Combine(Name, Code, Capital, Area, Population, Region);
     }
 }

@@ -24,11 +24,11 @@ namespace UserCountryInterfaces
     /// <summary>
     /// Implement of info country.
     /// </summary>
-    public class CountryInfo : ICountryInfo
+    public class CountryInfoSample : ICountryInfo
     {
-        private string name;
+        public CountryInfoSample(string name) => Name = name;
 
-        public CountryInfo(string name) => Name = name;
+        private string name;
 
         [SetNotNull]
         public string Name { get => name; set => name = value ?? throw new ArgumentNullException(nameof(Name)); }
@@ -37,5 +37,17 @@ namespace UserCountryInterfaces
         public double? Area { get; set; }
         public ulong? Population { get; set; }
         public string Region { get; set; }
+
+
+        public override bool Equals(object obj)
+            => obj is ICountryInfo info
+            && Name == info.Name
+            && Code == info.Code
+            && Capital == info.Capital
+            && Area == info.Area
+            && Population == info.Population
+            && Region == info.Region;
+
+        public override int GetHashCode() => HashCode.Combine(Name, Code, Capital, Area, Population, Region);
     }
 }
