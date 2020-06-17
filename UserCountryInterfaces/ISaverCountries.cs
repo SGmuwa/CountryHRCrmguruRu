@@ -17,13 +17,17 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
-
-namespace UserCountryService
+namespace UserCountryInterfaces
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    internal class SetNotNullAttribute : Attribute
+    /// <summary>
+    /// Interface of method-save country.
+    /// </summary>
+    public interface ISaverCountries
     {
-
+        /// <summary>
+        /// Save country to somewhere.
+        /// </summary>
+        /// <param name="CountryName">Name country to save.</param>
+        void SaveCountry(string CountryName);
     }
 }

@@ -17,16 +17,13 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace UserCountryService
+using System;
+
+namespace UserCountryInterfaces
 {
-    /// <summary>
-    /// Class-exception of side in <see cref="UserCountryService"/>.
-    /// </summary>
-    public class UserCountryServiceException : System.Exception
+    [AttributeUsage(AttributeTargets.Property)]
+    internal class SetNotNullAttribute : Attribute
     {
-        /// <summary>
-        /// Create instance of Exception of <see cref="UserCountryService"/>.
-        /// </summary>
-        public UserCountryServiceException(string message = null) : base(message) { }
+
     }
 }

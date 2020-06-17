@@ -17,17 +17,18 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace UserCountryService
+namespace UserCountryInterfaces
 {
     /// <summary>
-    /// Interface of method-save country.
+    /// Interface of info country.
     /// </summary>
-    public interface ISaverCountries
+    public interface ICountryInfo
     {
-        /// <summary>
-        /// Save country to somewhere.
-        /// </summary>
-        /// <param name="CountryName">Name country to save.</param>
-        void SaveCountry(string CountryName);
+        [SetNotNull] string Name { get; set; }
+        string Code { get; set; }
+        string Capital { get; set; }
+        double? Area { get; set; }
+        ulong? Population { get; set; }
+        string Region { get; set; }
     }
 }

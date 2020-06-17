@@ -19,7 +19,7 @@
 
 using System.Collections.Generic;
 
-namespace UserCountryService
+namespace UserCountryInterfaces
 {
     /// <summary>
     /// Interface of gets info about countries.
