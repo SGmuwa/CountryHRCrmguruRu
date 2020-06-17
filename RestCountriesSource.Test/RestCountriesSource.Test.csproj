@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestCountriesSource\RestCountriesSource.csproj" />
+    <ProjectReference Include="..\UserCountryInterfaces\UserCountryInterfaces.csproj" />
   </ItemGroup>
 
 </Project>
