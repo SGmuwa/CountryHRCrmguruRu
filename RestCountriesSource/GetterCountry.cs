@@ -43,9 +43,18 @@ namespace RestCountriesSource
 
         public async Task<ICountryInfo> GetCountryInfoAwait(string CountryName)
         {
-            var streamTask = client.GetStreamAsync(URI + Uri.EscapeUriString(CountryName));
-            var country = await JsonSerializer.DeserializeAsync<List<CountryInfo>>(await streamTask);
-            return country.FirstOrDefault();
+            if (CountryName == null)
+                return null;
+            try
+            {
+                var streamTask = client.GetStreamAsync(URI + Uri.EscapeUriString(CountryName));
+                var country = await JsonSerializer.DeserializeAsync<List<CountryInfo>>(await streamTask);
+                return country.FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
