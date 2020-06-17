@@ -22,7 +22,7 @@ namespace UserCountryInterfaces
     /// <summary>
     /// Interface of method-save country.
     /// </summary>
-    public interface ISaverCountries
+    public interface ISaverCountry
     {
         /// <summary>
         /// Save country to somewhere.
