@@ -32,7 +32,7 @@ namespace RestCountriesSource
         public CountryInfo(string name, string code, string capital, double? area, ulong? population, string region)
             => (Name, Code, Capital, Area, Population, Region) = (name, code, capital, area, population, region);
 
-        private string name = "";
+        private string name;
 
         [JsonPropertyName("name")]
         public string Name { get => name; set => name = value ?? throw new ArgumentNullException(nameof(Name)); }
