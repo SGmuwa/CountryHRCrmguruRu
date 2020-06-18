@@ -28,9 +28,12 @@ namespace DBCountriesSource
     {
         private readonly DbContextOptions options;
 
-        public GetterCountries(DbContextOptions options) => this.options = options;
+        public GetterCountries(DbContextOptions options)
+            => this.options = options ?? buildDefaultOptions();
 
-        public GetterCountries()
+        public GetterCountries() : this(buildDefaultOptions()) {}
+
+        private static DbContextOptions buildDefaultOptions()
         {
             DbContextOptionsBuilder dbb = new DbContextOptionsBuilder();
             var connectionInfo = ConfigurationManager.ConnectionStrings["DbConnectionString"]?.ConnectionString;
@@ -38,7 +41,7 @@ namespace DBCountriesSource
                 connectionInfo = "Data Source=(local); Database=ArticlesSite; Persist Security Info=false; "
                     + "MultipleActiveResultSets=True; Trusted_Connection=True; Initial Catalog=Countries";
             dbb.UseSqlServer(connectionInfo);
-            options = dbb.Options;
+            return dbb.Options ?? throw new System.NullReferenceException();
         }
 
         public IEnumerable<ICountryInfo> GetCountries() => new CountryCollection(new MyDBContext(options));
