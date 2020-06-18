@@ -41,12 +41,6 @@ namespace DBCountriesSource
             options = dbb.Options;
         }
 
-        public IEnumerable<ICountryInfo> GetCountries()
-        {
-            using (var context = new MyDBContext(options))
-            {
-                return context.Countries;
-            }
-        }
+        public IEnumerable<ICountryInfo> GetCountries() => new CountryCollection(new MyDBContext(options));
     }
 }
