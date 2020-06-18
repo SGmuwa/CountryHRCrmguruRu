@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestCountriesSource.Test", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBCountriesSource", "DBCountriesSource\DBCountriesSource.csproj", "{6C3DEC84-EE56-4607-A8FE-8EFE9BD158B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBCountriesSource.Test", "DBCountriesSource.Test\DBCountriesSource.Test.csproj", "{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,17 +72,5 @@ Global
 		{6C3DEC84-EE56-4607-A8FE-8EFE9BD158B5}.Release|x64.Build.0 = Release|Any CPU
 		{6C3DEC84-EE56-4607-A8FE-8EFE9BD158B5}.Release|x86.ActiveCfg = Release|Any CPU
 		{6C3DEC84-EE56-4607-A8FE-8EFE9BD158B5}.Release|x86.Build.0 = Release|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Debug|x64.Build.0 = Debug|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Debug|x86.Build.0 = Debug|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Release|x64.ActiveCfg = Release|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Release|x64.Build.0 = Release|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Release|x86.ActiveCfg = Release|Any CPU
-		{BD0CA444-2B91-47A2-9365-FDF5A8D8F16D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
