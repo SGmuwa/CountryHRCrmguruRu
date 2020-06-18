@@ -18,12 +18,14 @@
 */
 
 using System.ComponentModel.DataAnnotations;
+using UserCountryInterfaces;
 
 namespace DBCountriesSource.Tables
 {
-    class Country
+    class Country : ICountryInfo
     {
         [Required]
+        [Key]
         public ulong Id { get; set; }
 
         [Required]
@@ -31,12 +33,20 @@ namespace DBCountriesSource.Tables
 
         public string Code { get; set; }
 
-        public City Capital { get; set; }
+        public ulong? CapitalId { get; set; }
+
+        public virtual City Capital { get; set; }
 
         public double? Area { get; set; }
 
         public ulong? Population { get; set; }
 
-        public Region Region { get; set; }
+        public ulong? RegionId { get; set; }
+
+        public virtual Region Region { get; set; }
+
+        string ICountryInfo.Capital { get => Capital.Name; set => Capital.Name = value; }
+
+        string ICountryInfo.Region { get => Region.Name; set => Region.Name = value; }
     }
 }
