@@ -28,10 +28,8 @@ namespace DBCountriesSource
     {
         private readonly DbContextOptions options;
 
-        public GetterCountries(DbContextOptions options)
+        public GetterCountries(DbContextOptions options = null)
             => this.options = options ?? buildDefaultOptions();
-
-        public GetterCountries() : this(buildDefaultOptions()) {}
 
         private static DbContextOptions buildDefaultOptions()
         {
