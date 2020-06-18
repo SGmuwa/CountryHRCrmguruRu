@@ -33,7 +33,7 @@ namespace DBCountriesSource
         public GetterCountries()
         {
             DbContextOptionsBuilder dbb = new DbContextOptionsBuilder();
-            var connectionInfo = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString;
+            var connectionInfo = ConfigurationManager.ConnectionStrings["DbConnectionString"]?.ConnectionString;
             if(connectionInfo == null)
                 connectionInfo = "Data Source=(local); Database=ArticlesSite; Persist Security Info=false; "
                     + "MultipleActiveResultSets=True; Trusted_Connection=True; Initial Catalog=Countries";
