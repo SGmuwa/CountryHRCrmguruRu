@@ -32,22 +32,22 @@ namespace RestCountriesSource
         private static readonly HttpClient client = new HttpClient();
         private const string URI = "https://restcountries.eu/rest/v2/name/";
 
-        public ICountryInfo GetCountryInfo(string CountryName)
+        public ICountryInfo GetCountryInfo(string countryName)
         {
-            var task = GetCountryInfoAwait(CountryName);
+            var task = GetCountryInfoAwait(countryName);
             task.Wait(8000);
             return task.IsCompletedSuccessfully
                 ? task.Result
                 : null;
         }
 
-        public async Task<ICountryInfo> GetCountryInfoAwait(string CountryName)
+        public async Task<ICountryInfo> GetCountryInfoAwait(string countryName)
         {
-            if (CountryName == null)
+            if (countryName == null)
                 return null;
             try
             {
-                var streamTask = client.GetStreamAsync(URI + Uri.EscapeUriString(CountryName));
+                var streamTask = client.GetStreamAsync(URI + Uri.EscapeUriString(countryName));
                 var country = await JsonSerializer.DeserializeAsync<List<CountryInfo>>(await streamTask);
                 return country.FirstOrDefault();
             }

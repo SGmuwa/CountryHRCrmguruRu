@@ -27,8 +27,8 @@ namespace UserCountryInterfaces
         /// <summary>
         /// Get current country info by 
         /// </summary>
-        /// <param name="CountryName">Name of country.</param>
+        /// <param name="countryName">Name of country.</param>
         /// <returns>Instance of info about country.</returns>
-        ICountryInfo GetCountryInfo(string CountryName);
+        ICountryInfo GetCountryInfo(string countryName);
     }
 }
