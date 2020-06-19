@@ -17,10 +17,10 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using UserCountryInterfaces;
-using static DBCountriesSource.GetterDbContextOptions;
 
 namespace DBCountriesSource
 {
@@ -28,8 +28,8 @@ namespace DBCountriesSource
     {
         private readonly DbContextOptions options;
 
-        public GetterCountries(DbContextOptions options = null)
-            => this.options = options ?? BuildDefaultOptions();
+        public GetterCountries(DbContextOptions options)
+            => this.options = options ?? throw new ArgumentNullException(nameof(options));
 
         public IEnumerable<ICountryInfo> GetCountries() => new CountryCollection(new MyDBContext(options));
     }

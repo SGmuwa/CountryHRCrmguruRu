@@ -20,7 +20,6 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using UserCountryInterfaces;
-using static DBCountriesSource.GetterDbContextOptions;
 
 namespace DBCountriesSource
 {
@@ -32,7 +31,7 @@ namespace DBCountriesSource
         public SaverCountry(IGetterCountry getterCountry, DbContextOptions options = null)
         {
             this.gc = getterCountry ?? throw new System.ArgumentNullException(nameof(getterCountry));
-            this.options = options ?? BuildDefaultOptions();
+            this.options = options ?? throw new System.ArgumentNullException(nameof(options));
         }
 
         public void SaveCountry(string countryName)
