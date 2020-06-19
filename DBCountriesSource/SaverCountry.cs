@@ -17,11 +17,10 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System.Configuration;
 using System.Linq;
-using DBCountriesSource.Tables;
 using Microsoft.EntityFrameworkCore;
 using UserCountryInterfaces;
+using static DBCountriesSource.GetterDbContextOptions;
 
 namespace DBCountriesSource
 {
@@ -33,18 +32,7 @@ namespace DBCountriesSource
         public SaverCountry(IGetterCountry getterCountry, DbContextOptions options = null)
         {
             this.gc = getterCountry ?? throw new System.ArgumentNullException(nameof(getterCountry));
-            this.options = options ?? buildDefaultOptions();
-        }
-
-        private static DbContextOptions buildDefaultOptions()
-        {
-            DbContextOptionsBuilder dbb = new DbContextOptionsBuilder();
-            var connectionInfo = ConfigurationManager.ConnectionStrings["DbConnectionString"]?.ConnectionString;
-            if (connectionInfo == null)
-                connectionInfo = "Data Source=(local); Database=ArticlesSite; Persist Security Info=false; "
-                    + "MultipleActiveResultSets=True; Trusted_Connection=True; Initial Catalog=Countries";
-            dbb.UseSqlServer(connectionInfo);
-            return dbb.Options ?? throw new System.NullReferenceException();
+            this.options = options ?? BuildDefaultOptions();
         }
 
         public void SaveCountry(string countryName)

@@ -17,20 +17,22 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System.Collections.Generic;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
-using UserCountryInterfaces;
-using static DBCountriesSource.GetterDbContextOptions;
 
 namespace DBCountriesSource
 {
-    public class GetterCountries : IGetterCountries
+    public static class GetterDbContextOptions
     {
-        private readonly DbContextOptions options;
-
-        public GetterCountries(DbContextOptions options = null)
-            => this.options = options ?? BuildDefaultOptions();
-
-        public IEnumerable<ICountryInfo> GetCountries() => new CountryCollection(new MyDBContext(options));
+        public static DbContextOptions BuildDefaultOptions()
+        {
+            DbContextOptionsBuilder dbb = new DbContextOptionsBuilder();
+            var connectionInfo = ConfigurationManager.ConnectionStrings["DbConnectionString"]?.ConnectionString;
+            if (connectionInfo == null)
+                connectionInfo = "Data Source=(local); Database=ArticlesSite; Persist Security Info=false; "
+                    + "MultipleActiveResultSets=True; Trusted_Connection=True; Initial Catalog=Countries";
+            dbb.UseSqlServer(connectionInfo);
+            return dbb.Options ?? throw new System.NullReferenceException();
+        }
     }
 }
