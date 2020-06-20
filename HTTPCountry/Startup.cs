@@ -50,7 +50,7 @@ namespace HTTPCountry
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=HelloWorld}/{action=Index}/{id?}");
+                    template: "{controller=GetCountry}/{action=Index}/");
             });
         }
     }

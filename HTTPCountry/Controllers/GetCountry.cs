@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HTTPCountry.Controllers
 {
-    public class HelloWorldController : Controller
+    public class GetCountry : Controller
     {
         public IActionResult Index() => View();
     }
