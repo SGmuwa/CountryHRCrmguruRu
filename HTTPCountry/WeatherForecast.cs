@@ -1,6 +1,6 @@
 using System;
 
-namespace rr
+namespace HTTPCountry
 {
     public class WeatherForecast
     {
