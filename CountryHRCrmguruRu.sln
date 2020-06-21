@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBCountriesSource", "DBCoun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTPCountry", "HTTPCountry\HTTPCountry.csproj", "{0A297ED9-2079-4E14-ADBD-6780FE11F7DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCountry", "ConsoleCountry\ConsoleCountry.csproj", "{B75E9073-F5FC-4D54-A3CC-545106A2C34F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,5 +88,17 @@ Global
 		{0A297ED9-2079-4E14-ADBD-6780FE11F7DA}.Release|x64.Build.0 = Release|Any CPU
 		{0A297ED9-2079-4E14-ADBD-6780FE11F7DA}.Release|x86.ActiveCfg = Release|Any CPU
 		{0A297ED9-2079-4E14-ADBD-6780FE11F7DA}.Release|x86.Build.0 = Release|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Debug|x64.Build.0 = Debug|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Debug|x86.Build.0 = Debug|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Release|x64.ActiveCfg = Release|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Release|x64.Build.0 = Release|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Release|x86.ActiveCfg = Release|Any CPU
+		{B75E9073-F5FC-4D54-A3CC-545106A2C34F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
