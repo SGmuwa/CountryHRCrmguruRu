@@ -25,22 +25,58 @@ namespace ConsoleCountry
     class App
     {
         private readonly IGetterCountry getterCountry;
+        private readonly IGetterCountries getterCountries;
+        private readonly ISaverCountry saverCountry;
 
-        public App(IGetterCountry getterCountry)
-            => this.getterCountry = getterCountry ?? throw new ArgumentNullException(nameof(getterCountry));
+        public App(IGetterCountry getterCountry, IGetterCountries getterCountries, ISaverCountry saverCountry)
+        {
+            this.getterCountry = getterCountry ?? throw new ArgumentNullException(nameof(getterCountry));
+            this.getterCountries = getterCountries ?? throw new ArgumentNullException(nameof(getterCountries));
+            this.saverCountry = saverCountry ?? throw new ArgumentNullException(nameof(saverCountry));
+        }
 
         public void Run()
         {
             Console.WriteLine("Press [Enter] to exit.\n"
                 + "Type name of country and press [ENTER] to get info about country.");
+            ICountryInfo country = null;
             while (true)
             {
-                Console.Write("Country: ");
+                Console.Write(
+                     $"{(country == null ? "" : "Press [s] and [Enter] to save in DB.\n")}"
+                    + "Press [q] and [Enter] to exit.\n"
+                    + "Press [Enter] to get all from DB.\n"
+                    + "Type name of country and press [ENTER] to get info about country.\n"
+                    + "Country: ");
                 string s = Console.ReadLine();
                 if (string.IsNullOrEmpty(s))
-                    return;
-                var country = getterCountry.GetCountryInfo(s);
-                Console.WriteLine(country == null ? "Not found." : country.ToString());
+                {
+                    Console.WriteLine(string.Join('\n', getterCountries.GetCountries()));
+                    country = null;
+                    continue;
+                }
+                if (country != null && s == "s")
+                {
+                    try
+                    {
+                        Console.WriteLine($"Save: {country.Name}...");
+                        saverCountry.SaveCountry(country.Name);
+                        Console.WriteLine("Saved success.");
+                    }
+                    catch(Exception e)
+                    {
+                        Console.Error.WriteLine($"Can't save: {e.Message}\n{e.StackTrace}\n{e}");
+                    }
+                    country = null;
+                    continue;
+                }
+                country = getterCountry.GetCountryInfo(s);
+                if (country == null)
+                {
+                    Console.WriteLine("Not found.");
+                    continue;
+                }
+                Console.WriteLine(country);
             }
         }
     }

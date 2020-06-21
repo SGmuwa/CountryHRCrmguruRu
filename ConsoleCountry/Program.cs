@@ -18,13 +18,49 @@
 */
 
 using System;
+using System.IO;
+using DBCountriesSource;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using RestCountriesSource;
+using UserCountryInterfaces;
 
 namespace ConsoleCountry
 {
     class Program
     {
         static void Main(string[] args)
-            => new App(new GetterCountry()).Run();
+        {
+            IGetterCountry gc = new GetterCountry();
+            DbContextOptions context = BuildConfigureDB();
+            IGetterCountries gcs = new GetterCountries(context);
+            ISaverCountry sc = new SaverCountry(gc, context);
+            new App(gc, gcs, sc).Run();
+        }
+
+        private static DbContextOptions BuildConfigureDB()
+        {
+            IConfigurationBuilder cb = new ConfigurationBuilder();
+            cb.AddEnvironmentVariables("COUNTRY_");
+            if (File.Exists("db.json"))
+            {
+                try
+                {
+                    cb.AddJsonFile("db.json");
+                }
+                catch { }
+            }
+            IConfigurationRoot conf = cb.Build();
+            string DB_select = conf.GetValue<string>("DB_select");
+            if (DB_select == null)
+                throw new NullReferenceException("You need to set type DB options in db.json or in environments for DB.");
+            string connectionString = conf.GetConnectionString(DB_select);
+            if (connectionString == null)
+                throw new NullReferenceException("You need to set DB options in db.json or in environments for DB.");
+            return new DbContextOptionsBuilder()
+                .UseSqlServer(connectionString, providerOptions=>providerOptions.CommandTimeout(60))
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                .Options;
+        }
     }
 }
