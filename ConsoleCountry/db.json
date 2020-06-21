@@ -1,6 +1,6 @@
 {
     "DB_select": "mydocker",
     "connectionStrings": {
-        "mydocker": "Server=127.0.0.1,1401;Database=Master;User Id=SA;Password=mypassword;"
+        "mydocker": "Server=127.0.0.1,1401;Database=Master;User Id=SA;Password=mypassword123!@#;"
     }
 }
