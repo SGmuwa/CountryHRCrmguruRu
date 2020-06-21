@@ -27,18 +27,18 @@ using UserCountryInterfaces;
 
 namespace ConsoleCountry
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             IGetterCountry gc = new GetterCountry();
-            DbContextOptions context = BuildConfigureDB();
+            DbContextOptions context = BuildDbContextOptions();
             IGetterCountries gcs = new GetterCountries(context);
             ISaverCountry sc = new SaverCountry(gc, context);
             new App(gc, gcs, sc).Run();
         }
 
-        private static DbContextOptions BuildConfigureDB()
+        public static DbContextOptions BuildDbContextOptions()
         {
             IConfigurationBuilder cb = new ConfigurationBuilder();
             cb.AddEnvironmentVariables("COUNTRY_");
