@@ -18,6 +18,8 @@
 */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UserCountryInterfaces;
 
 namespace ConsoleCountry
@@ -37,13 +39,11 @@ namespace ConsoleCountry
 
         public void Run()
         {
-            Console.WriteLine("Press [Enter] to exit.\n"
-                + "Type name of country and press [ENTER] to get info about country.");
             ICountryInfo country = null;
             while (true)
             {
                 Console.Write(
-                     $"{(country == null ? "" : "Press [s] and [Enter] to save in DB.\n")}"
+                     $"{(country == null ? "" : $"\n{country}\n\nPress [s] and [Enter] to save in DB.\n")}"
                     + "Press [q] and [Enter] to exit.\n"
                     + "Press [Enter] to get all from DB.\n"
                     + "Type name of country and press [ENTER] to get info about country.\n"
@@ -51,32 +51,43 @@ namespace ConsoleCountry
                 string s = Console.ReadLine();
                 if (string.IsNullOrEmpty(s))
                 {
-                    Console.WriteLine(string.Join('\n', getterCountries.GetCountries()));
+                    IEnumerable<ICountryInfo> countries;
+                    try
+                    {
+                        countries = getterCountries.GetCountries();
+                        if (countries.Any())
+                            Console.WriteLine(string.Join('\n', countries));
+                        else
+                            Console.WriteLine("List empty.");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Can't get list of countries: {e}");
+                    }
                     country = null;
-                    continue;
                 }
-                if (country != null && s == "s")
+                else if (s == "q")
+                    break;
+                else if (country != null && s == "s")
                 {
                     try
                     {
                         Console.WriteLine($"Save: {country.Name}...");
                         saverCountry.SaveCountry(country.Name);
-                        Console.WriteLine("Saved success.");
+                        Console.WriteLine("Saving completed successfully.");
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
-                        Console.Error.WriteLine($"Can't save: {e.Message}\n{e.StackTrace}\n{e}");
+                        Console.Error.WriteLine($"Can't save:\n{e}");
                     }
                     country = null;
-                    continue;
                 }
-                country = getterCountry.GetCountryInfo(s);
-                if (country == null)
+                else
                 {
-                    Console.WriteLine("Not found.");
-                    continue;
+                    country = getterCountry.GetCountryInfo(s);
+                    if (country == null)
+                        Console.WriteLine("Country not found.");
                 }
-                Console.WriteLine(country);
             }
         }
     }
