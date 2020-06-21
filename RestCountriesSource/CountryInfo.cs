@@ -23,7 +23,7 @@ using System;
 
 namespace RestCountriesSource
 {
-    public class CountryInfo : ICountryInfo
+    public class CountryInfo : AbstractCountryInfo
     {
         public CountryInfo(string name) => Name = name;
 
@@ -32,35 +32,22 @@ namespace RestCountriesSource
         public CountryInfo(string name, string code, string capital, double? area, ulong? population, string region)
             => (Name, Code, Capital, Area, Population, Region) = (name, code, capital, area, population, region);
 
-        private string name;
-
         [JsonPropertyName("name")]
-        public string Name { get => name; set => name = value ?? throw new ArgumentNullException(nameof(Name)); }
+        public override string Name { get => base.Name; set => base.Name = value; }
 
         [JsonPropertyName("alpha2Code")]
-        public string Code { get; set; }
+        public override string Code { get; set; }
 
         [JsonPropertyName("capital")]
-        public string Capital { get; set; }
+        public override string Capital { get; set; }
 
         [JsonPropertyName("area")]
-        public double? Area { get; set; }
+        public override double? Area { get; set; }
 
         [JsonPropertyName("population")]
-        public ulong? Population { get; set; }
+        public override ulong? Population { get; set; }
 
         [JsonPropertyName("region")]
-        public string Region { get; set; }
-
-        public override bool Equals(object obj)
-            => obj is ICountryInfo info
-            && Name == info.Name
-            && Code == info.Code
-            && Capital == info.Capital
-            && Area == info.Area
-            && Population == info.Population
-            && Region == info.Region;
-
-        public override int GetHashCode() => HashCode.Combine(Name, Code, Capital, Area, Population, Region);
+        public override string Region { get; set; }
     }
 }

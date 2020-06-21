@@ -18,26 +18,22 @@
 */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UserCountryInterfaces
 {
     /// <summary>
-    /// Implement of info country.
+    /// Abstract class of info country.
     /// </summary>
-    public class CountryInfoSample : ICountryInfo
+    public abstract class AbstractCountryInfo : ICountryInfo
     {
-        public CountryInfoSample(string name) => Name = name;
-
         private string name;
-
-        [SetNotNull]
-        public string Name { get => name; set => name = value ?? throw new ArgumentNullException(nameof(Name)); }
-        public string Code { get; set; }
-        public string Capital { get; set; }
-        public double? Area { get; set; }
-        public ulong? Population { get; set; }
-        public string Region { get; set; }
-
+        [NotNull] public virtual string Name { get => name; set => name = value ?? throw new ArgumentNullException(nameof(Name)); }
+        public abstract string Code { get; set; }
+        public abstract string Capital { get; set; }
+        public abstract double? Area { get; set; }
+        public abstract ulong? Population { get; set; }
+        public abstract string Region { get; set; }
 
         public override bool Equals(object obj)
             => obj is ICountryInfo info
@@ -49,5 +45,13 @@ namespace UserCountryInterfaces
             && Region == info.Region;
 
         public override int GetHashCode() => HashCode.Combine(Name, Code, Capital, Area, Population, Region);
+
+        public override string ToString()
+            => $"{nameof(Name)}: {Name}, "
+            + $"{nameof(Code)}: {Code}, "
+            + $"{nameof(Capital)}: {Capital}, "
+            + $"{nameof(Area)}: {Area}, "
+            + $"{nameof(Population)}: {Population}, "
+            + $"{nameof(Region)}: {Region}.";
     }
 }

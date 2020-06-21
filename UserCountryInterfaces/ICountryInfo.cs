@@ -17,6 +17,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace UserCountryInterfaces
 {
     /// <summary>
@@ -24,7 +26,7 @@ namespace UserCountryInterfaces
     /// </summary>
     public interface ICountryInfo
     {
-        [SetNotNull] string Name { get; set; }
+        [NotNull] string Name { get; set; }
         string Code { get; set; }
         string Capital { get; set; }
         double? Area { get; set; }
