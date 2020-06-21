@@ -1,4 +1,4 @@
-﻿/*
+/*
     CountryHRCrmguruRu.
     Copyright (C) 2020
     Mikhail Pavlovich Sidorenko (motherlode.muwa@gmail.com)
@@ -18,13 +18,30 @@
 */
 
 using System;
-using RestCountriesSource;
+using UserCountryInterfaces;
 
 namespace ConsoleCountry
 {
-    class Program
+    class App
     {
-        static void Main(string[] args)
-            => new App(new GetterCountry()).Run();
+        private readonly IGetterCountry getterCountry;
+
+        public App(IGetterCountry getterCountry)
+            => this.getterCountry = getterCountry ?? throw new ArgumentNullException(nameof(getterCountry));
+
+        public void Run()
+        {
+            Console.WriteLine("Press [Enter] to exit.\n"
+                + "Type name of country and press [ENTER] to get info about country.");
+            while (true)
+            {
+                Console.Write("Country: ");
+                string s = Console.ReadLine();
+                if (string.IsNullOrEmpty(s))
+                    return;
+                var country = getterCountry.GetCountryInfo(s);
+                Console.WriteLine(country == null ? "Not found." : country.ToString());
+            }
+        }
     }
 }
