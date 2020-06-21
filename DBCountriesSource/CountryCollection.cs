@@ -27,50 +27,38 @@ namespace DBCountriesSource
     public class CountryCollection : IEnumerable<ICountryInfo>, IEnumerator<ICountryInfo>, IDisposable
     {
         private readonly MyDBContext context;
-        private readonly IEnumerator<ICountryInfo> countries;
-        private bool hasGet = false;
+        private IEnumerator<ICountryInfo> countries;
 
         internal CountryCollection(MyDBContext context)
         {
             this.context = context;
-            this.countries = ((IEnumerable<ICountryInfo>)context.Countries).GetEnumerator();
         }
 
         ~CountryCollection() => Dispose();
 
-        public ICountryInfo Current
-        {
-            get
-            {
-                hasGet = true;
-                return countries.Current;
-            }
-        }
+        public ICountryInfo Current => countries.Current;
 
         object IEnumerator.Current => Current;
 
         public void Dispose()
         {
-            hasGet = true;
             countries.Dispose();
             context.Dispose();
         }
 
         public IEnumerator<ICountryInfo> GetEnumerator()
         {
-            if (hasGet)
-                throw new NotSupportedException("GetEnumerator already got!");
-            hasGet = true;
+            Reset();
             return this;
         }
 
-        public bool MoveNext()
-        {
-            hasGet = true;
-            return countries.MoveNext();
-        }
+        public bool MoveNext() => countries.MoveNext();
 
-        public void Reset() => countries.Reset();
+        public void Reset()
+        {
+            this.countries?.Dispose();
+            this.countries = ((IEnumerable<ICountryInfo>)context.Countries).GetEnumerator();
+        }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
