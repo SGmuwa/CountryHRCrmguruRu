@@ -31,6 +31,6 @@ namespace DBCountriesSource
             => this.options = options ?? throw new ArgumentNullException(nameof(options));
 
         public IEnumerableDisposable<ICountryInfo> GetCountries()
-            => new CountryCollection(new MyDBContext(options));
+            => new CountryCollection(new MyDBContext(options), new MyDBContext(options));
     }
 }

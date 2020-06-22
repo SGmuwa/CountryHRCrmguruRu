@@ -28,23 +28,27 @@ namespace DBCountriesSource
 {
     internal class CountryCollection : IEnumerableDisposable<ICountryInfo>
     {
-        private readonly MyDBContext context;
+        private readonly MyDBContext context1;
+        private readonly MyDBContext context2;
 
-        internal CountryCollection(MyDBContext context)
-            => this.context = context ?? throw new ArgumentNullException(nameof(context));
+        internal CountryCollection(MyDBContext context1, MyDBContext context2)
+        {
+            this.context1 = context1 ?? throw new ArgumentNullException(nameof(context1));
+            this.context2 = context2 ?? throw new ArgumentNullException(nameof(context2));
+        }
 
         ~CountryCollection() => Dispose();
 
-        public void Dispose() => context.Dispose();
+        public void Dispose() => context1.Dispose();
 
         public IEnumerator<ICountryInfo> GetEnumerator()
         {
-            using (var en = ((IEnumerable<Country>)context.Countries).GetEnumerator())
+            using (var en = ((IEnumerable<Country>)context1.Countries).GetEnumerator())
             {
                 while (en.MoveNext())
                 {
-                    en.Current.Capital = (from city in context.Cities where city.Id == en.Current.CapitalId select city).FirstOrDefault();
-                    en.Current.Region = (from reg in context.Regions where reg.Id == en.Current.RegionId select reg).FirstOrDefault();
+                    en.Current.Capital = (from city in context2.Cities where city.Id == en.Current.CapitalId select city).FirstOrDefault();
+                    en.Current.Region = (from reg in context2.Regions where reg.Id == en.Current.RegionId select reg).FirstOrDefault();
                     yield return en.Current;
                 }
             }
