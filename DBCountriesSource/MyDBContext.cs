@@ -25,9 +25,9 @@ namespace DBCountriesSource
 {
     public class MyDBContext : DbContext
     {
-        private readonly DbContextOptions<MyDBContext> options;
+        private readonly DbContextOptions options;
 
-        public MyDBContext(DbContextOptions<MyDBContext> options) : base(options)
+        public MyDBContext(DbContextOptions options) : base(options)
             => this.options = options;
 
         public DbSet<City> Cities { get; set; }

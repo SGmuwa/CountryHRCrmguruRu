@@ -26,9 +26,9 @@ namespace DBCountriesSource
     public class SaverCountry : ISaverCountry
     {
         private readonly IGetterCountry gc;
-        private readonly DbContextOptions<MyDBContext> options;
+        private readonly DbContextOptions options;
 
-        public SaverCountry(IGetterCountry getterCountry, DbContextOptions<MyDBContext> options)
+        public SaverCountry(IGetterCountry getterCountry, DbContextOptions options)
         {
             this.gc = getterCountry ?? throw new System.ArgumentNullException(nameof(getterCountry));
             this.options = options ?? throw new System.ArgumentNullException(nameof(options));
