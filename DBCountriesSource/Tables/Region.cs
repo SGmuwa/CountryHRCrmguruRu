@@ -17,6 +17,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -26,7 +27,7 @@ namespace DBCountriesSource.Tables
     {
         [Required]
         [Key]
-        public ulong Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Name { get ; set; }

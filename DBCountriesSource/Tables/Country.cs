@@ -17,6 +17,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.ComponentModel.DataAnnotations;
 using UserCountryInterfaces;
 
@@ -26,26 +27,28 @@ namespace DBCountriesSource.Tables
     {
         [Required]
         [Key]
-        public ulong Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
         public string Code { get; set; }
 
-        public ulong? CapitalId { get; set; }
+        public Guid? CapitalId { get; set; }
 
         public virtual City Capital { get; set; }
 
         public double? Area { get; set; }
 
-        public ulong? Population { get; set; }
+        public long? Population { get; set; }
 
-        public ulong? RegionId { get; set; }
+        public Guid? RegionId { get; set; }
 
         public virtual Region Region { get; set; }
 
         string ICountryInfo.Capital { get => Capital.Name; set => Capital.Name = value; }
+
+        ulong? ICountryInfo.Population { get => (ulong?)Population; set => Population = (long?)value; }
 
         string ICountryInfo.Region { get => Region.Name; set => Region.Name = value; }
     }
