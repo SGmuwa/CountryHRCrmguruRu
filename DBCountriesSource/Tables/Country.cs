@@ -46,10 +46,16 @@ namespace DBCountriesSource.Tables
 
         public virtual Region Region { get; set; }
 
-        string ICountryInfo.Capital { get => Capital.Name; set => Capital.Name = value; }
+        string ICountryInfo.Capital { get => Capital?.Name; set => Capital.Name = value; }
 
         ulong? ICountryInfo.Population { get => (ulong?)Population; set => Population = (long?)value; }
 
-        string ICountryInfo.Region { get => Region.Name; set => Region.Name = value; }
+        string ICountryInfo.Region { get => Region?.Name; set => Region.Name = value; }
+
+        public override bool Equals(object obj) => AbstractCountryInfo.Equals(this, obj);
+
+        public override int GetHashCode() => AbstractCountryInfo.GetHashCode(this);
+
+        public override string ToString() => AbstractCountryInfo.ToString(this);
     }
 }

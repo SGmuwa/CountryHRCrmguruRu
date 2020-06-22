@@ -35,23 +35,30 @@ namespace UserCountryInterfaces
         public abstract ulong? Population { get; set; }
         public abstract string Region { get; set; }
 
-        public override bool Equals(object obj)
+        public static bool Equals(ICountryInfo that, object obj)
             => obj is ICountryInfo info
-            && Name == info.Name
-            && Code == info.Code
-            && Capital == info.Capital
-            && Area == info.Area
-            && Population == info.Population
-            && Region == info.Region;
+            && that.Name == info.Name
+            && that.Code == info.Code
+            && that.Capital == info.Capital
+            && that.Area == info.Area
+            && that.Population == info.Population
+            && that.Region == info.Region;
 
-        public override int GetHashCode() => HashCode.Combine(Name, Code, Capital, Area, Population, Region);
+        public static int GetHashCode(ICountryInfo that)
+            => HashCode.Combine(that.Name, that.Code, that.Capital, that.Area, that.Population, that.Region);
 
-        public override string ToString()
-            => $"{nameof(Name)}: {Name}, "
-            + $"{nameof(Code)}: {Code}, "
-            + $"{nameof(Capital)}: {Capital}, "
-            + $"{nameof(Area)}: {Area}, "
-            + $"{nameof(Population)}: {Population}, "
-            + $"{nameof(Region)}: {Region}.";
+        public static string ToString(ICountryInfo that)
+            => $"{nameof(Name)}: {that.Name}, "
+            + $"{nameof(Code)}: {that.Code}, "
+            + $"{nameof(Capital)}: {that.Capital}, "
+            + $"{nameof(Area)}: {that.Area}, "
+            + $"{nameof(Population)}: {that.Population}, "
+            + $"{nameof(Region)}: {that.Region}.";
+
+        public override bool Equals(object obj) => Equals(this, obj);
+
+        public override int GetHashCode() => GetHashCode(this);
+
+        public override string ToString() => ToString(this);
     }
 }
