@@ -17,13 +17,11 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.IO;
 using DBCountriesSource;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using RestCountriesSource;
 using UserCountryInterfaces;
+using static DBCountriesSource.BuilderDbContextOptions;
 
 namespace ConsoleCountry
 {
@@ -36,31 +34,6 @@ namespace ConsoleCountry
             IGetterCountries gcs = new GetterCountries(context);
             ISaverCountry sc = new SaverCountry(gc, context);
             new App(gc, gcs, sc).Run();
-        }
-
-        public static DbContextOptions BuildDbContextOptions()
-        {
-            IConfigurationBuilder cb = new ConfigurationBuilder();
-            cb.AddEnvironmentVariables("COUNTRY_");
-            if (File.Exists("db.json"))
-            {
-                try
-                {
-                    cb.AddJsonFile("db.json");
-                }
-                catch { }
-            }
-            IConfigurationRoot conf = cb.Build();
-            string DB_select = conf.GetValue<string>("DB_select");
-            if (DB_select == null)
-                throw new NullReferenceException("You need to set type DB options in db.json or in environments for DB.");
-            string connectionString = conf.GetConnectionString(DB_select);
-            if (connectionString == null)
-                throw new NullReferenceException("You need to set DB options in db.json or in environments for DB.");
-            return new DbContextOptionsBuilder()
-                .UseSqlServer(connectionString, providerOptions=>providerOptions.CommandTimeout(60))
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-                .Options;
         }
     }
 }
