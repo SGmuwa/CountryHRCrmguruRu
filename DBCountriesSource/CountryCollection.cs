@@ -21,6 +21,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UserCountryInterfaces;
+using System.Linq;
+using DBCountriesSource.Tables;
 
 namespace DBCountriesSource
 {
@@ -35,7 +37,18 @@ namespace DBCountriesSource
 
         public void Dispose() => context.Dispose();
 
-        public IEnumerator<ICountryInfo> GetEnumerator() => ((IEnumerable<ICountryInfo>)context.Countries).GetEnumerator();
+        public IEnumerator<ICountryInfo> GetEnumerator()
+        {
+            using (var en = ((IEnumerable<Country>)context.Countries).GetEnumerator())
+            {
+                while (en.MoveNext())
+                {
+                    en.Current.Capital = (from city in context.Cities where city.Id == en.Current.CapitalId select city).FirstOrDefault();
+                    en.Current.Region = (from reg in context.Regions where reg.Id == en.Current.RegionId select reg).FirstOrDefault();
+                    yield return en.Current;
+                }
+            }
+        }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
