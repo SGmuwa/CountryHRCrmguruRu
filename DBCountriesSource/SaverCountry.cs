@@ -40,14 +40,32 @@ namespace DBCountriesSource
                 ?? throw new System.ArgumentOutOfRangeException(nameof(countryName), $"Not found in {gc}");
             using (var context = new MyDBContext(options))
             {
-                var countryIsIs = (from c in context.Countries where c.Name == countryName select c).FirstOrDefault();
+                Tables.Region regionIsIs = (from r in context.Regions where r.Name == countryToBe.Region select r).FirstOrDefault();
+                if (regionIsIs == null)
+                {
+                    regionIsIs = new Tables.Region();
+                    context.Add(regionIsIs);
+                }
+                regionIsIs.Name = countryToBe.Region;
+                Tables.City capitalIsIs = (from r in context.Cities where r.Name == countryToBe.Capital select r).FirstOrDefault();
+                if (capitalIsIs == null)
+                {
+                    capitalIsIs = new Tables.City();
+                    context.Add(capitalIsIs);
+                }
+                capitalIsIs.Name = countryToBe.Capital;
+                Tables.Country countryIsIs = (from c in context.Countries where c.Name == countryToBe.Name select c).FirstOrDefault();
+                if (countryIsIs == null)
+                {
+                    countryIsIs = new Tables.Country();
+                    context.Add(countryIsIs);
+                }
                 countryIsIs.Name = countryToBe.Name;
                 countryIsIs.Area = countryToBe.Area;
                 countryIsIs.Code = countryToBe.Code;
-                countryIsIs.Population = countryToBe.Population;
-                countryIsIs.Capital.Name = countryToBe.Capital;
-                countryIsIs.Region.Name = countryToBe.Region;
-
+                countryIsIs.Population = (long?)countryToBe.Population;
+                countryIsIs.Region = regionIsIs;
+                countryIsIs.Capital = capitalIsIs;
                 context.SaveChanges();
             }
         }
