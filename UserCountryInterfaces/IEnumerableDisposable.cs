@@ -17,17 +17,12 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
+using System.Collections.Generic;
+
 namespace UserCountryInterfaces
 {
-    /// <summary>
-    /// Interface of gets info about countries.
-    /// </summary>
-    public interface IGetterCountries
+    public interface IEnumerableDisposable<out T> : IEnumerable<T>, IDisposable
     {
-        /// <summary>
-        /// Get all countries from somewhere.
-        /// </summary>
-        /// <returns>Enumeration of countries.</returns>
-        IEnumerableDisposable<ICountryInfo> GetCountries();
     }
 }

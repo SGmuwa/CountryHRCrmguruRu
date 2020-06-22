@@ -51,14 +51,15 @@ namespace ConsoleCountry
                 string s = Console.ReadLine();
                 if (string.IsNullOrEmpty(s))
                 {
-                    IEnumerable<ICountryInfo> countries;
                     try
                     {
-                        countries = getterCountries.GetCountries();
-                        if (countries.Any())
-                            Console.WriteLine(string.Join('\n', countries));
-                        else
-                            Console.WriteLine("List empty.");
+                        using (var countries = getterCountries.GetCountries())
+                        {
+                            if (countries.Any())
+                                Console.WriteLine(string.Join('\n', countries));
+                            else
+                                Console.WriteLine("List empty.");
+                        }
                     }
                     catch (Exception e)
                     {

@@ -18,7 +18,6 @@
 */
 
 using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using UserCountryInterfaces;
 
@@ -31,6 +30,7 @@ namespace DBCountriesSource
         public GetterCountries(DbContextOptions options)
             => this.options = options ?? throw new ArgumentNullException(nameof(options));
 
-        public IEnumerable<ICountryInfo> GetCountries() => new CountryCollection(new MyDBContext(options));
+        public IEnumerableDisposable<ICountryInfo> GetCountries()
+            => new CountryCollection(new MyDBContext(options));
     }
 }

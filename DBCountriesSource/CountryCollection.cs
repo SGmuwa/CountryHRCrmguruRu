@@ -24,39 +24,18 @@ using UserCountryInterfaces;
 
 namespace DBCountriesSource
 {
-    internal class CountryCollection : IEnumerable<ICountryInfo>, IEnumerator<ICountryInfo>, IDisposable
+    internal class CountryCollection : IEnumerableDisposable<ICountryInfo>
     {
         private readonly MyDBContext context;
-        private IEnumerator<ICountryInfo> countries;
 
         internal CountryCollection(MyDBContext context)
             => this.context = context ?? throw new ArgumentNullException(nameof(context));
 
         ~CountryCollection() => Dispose();
 
-        public ICountryInfo Current => countries.Current;
+        public void Dispose() => context.Dispose();
 
-        object IEnumerator.Current => Current;
-
-        public void Dispose()
-        {
-            countries.Dispose();
-            context.Dispose();
-        }
-
-        public IEnumerator<ICountryInfo> GetEnumerator()
-        {
-            Reset();
-            return this;
-        }
-
-        public bool MoveNext() => countries.MoveNext();
-
-        public void Reset()
-        {
-            this.countries?.Dispose();
-            this.countries = ((IEnumerable<ICountryInfo>)context.Countries).GetEnumerator();
-        }
+        public IEnumerator<ICountryInfo> GetEnumerator() => ((IEnumerable<ICountryInfo>)context.Countries).GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
