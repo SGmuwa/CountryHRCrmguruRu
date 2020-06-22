@@ -22,7 +22,7 @@ using UserCountryInterfaces;
 
 namespace DBCountriesSource.Tables
 {
-    class Country : ICountryInfo
+    public class Country : ICountryInfo
     {
         [Required]
         [Key]

@@ -21,7 +21,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DBCountriesSource.Tables
 {
-    class City
+    public class City
     {
         [Required]
         [Key]

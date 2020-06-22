@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DBCountriesSource.Tables
 {
-    class Region
+    public class Region
     {
         [Required]
         [Key]

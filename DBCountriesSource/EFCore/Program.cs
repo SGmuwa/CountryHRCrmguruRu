@@ -17,21 +17,20 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System.Diagnostics.CodeAnalysis;
-using DBCountriesSource.Tables;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace DBCountriesSource
 {
-    public class MyDBContext : DbContext
+    public class Program
     {
-        private readonly DbContextOptions<MyDBContext> options;
+        public static void Main(string[] args)
+            => CreateHostBuilder(args).Build().Run();
 
-        public MyDBContext(DbContextOptions<MyDBContext> options) : base(options)
-            => this.options = options;
-
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<Region> Regions { get; set; }
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        => Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(
+                webBuilder => webBuilder.UseStartup<Startup>());
     }
 }

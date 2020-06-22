@@ -26,9 +26,9 @@ namespace DBCountriesSource
 {
     public class GetterCountries : IGetterCountries
     {
-        private readonly DbContextOptions options;
+        private readonly DbContextOptions<MyDBContext> options;
 
-        public GetterCountries(DbContextOptions options)
+        public GetterCountries(DbContextOptions<MyDBContext> options)
             => this.options = options ?? throw new ArgumentNullException(nameof(options));
 
         public IEnumerable<ICountryInfo> GetCountries() => new CountryCollection(new MyDBContext(options));
