@@ -18,15 +18,4 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.5" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="db.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="db.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>

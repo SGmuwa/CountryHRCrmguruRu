@@ -17,64 +17,24 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.IO;
-using DBCountriesSource.Tables;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using static DBCountriesSource.BuilderDbContextOptions;
 
-namespace DBCountriesSource
+namespace DBCountriesSource.EFCore
 {
     public class Startup
     {
         private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
-        {
-            Console.WriteLine($"configuration: {configuration}");
-            this.configuration = configuration;
-        }
+            => this.configuration = configuration;
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-
-        }
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) { }
 
         public void ConfigureServices(IServiceCollection services)
             => services.AddDbContext<MyDBContext>((dbb) => BuildDbContextOptions(configuration, dbb));
-
-        public static DbContextOptions BuildDbContextOptions(IConfiguration conf = null, DbContextOptionsBuilder builderDb = null)
-        {
-            if (conf == null)
-            {
-                IConfigurationBuilder cb = new ConfigurationBuilder();
-                cb.AddEnvironmentVariables("COUNTRY_");
-                if (File.Exists("db.json"))
-                {
-                    try
-                    {
-                        cb.AddJsonFile("db.json");
-                    }
-                    catch { }
-                }
-                conf = cb.Build();
-            }
-            string connectionString = conf.GetConnectionString(nameof(MyDBContext));
-            if (builderDb == null)
-                builderDb = new DbContextOptionsBuilder();
-            if (connectionString == null)
-            {
-                Console.Error.WriteLine("Warning: You need to set DB options in db.json or in environments for DB.");
-                connectionString = "Server=127.0.0.1,1401;Database=Master;User Id=SA;Password=mypassword123!@#;";
-            }
-            return builderDb
-                .UseSqlServer(connectionString, providerOptions => providerOptions.CommandTimeout(60))
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-                .Options;
-        }
     }
 }
