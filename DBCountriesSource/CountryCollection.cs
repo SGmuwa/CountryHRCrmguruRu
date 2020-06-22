@@ -24,15 +24,13 @@ using UserCountryInterfaces;
 
 namespace DBCountriesSource
 {
-    public class CountryCollection : IEnumerable<ICountryInfo>, IEnumerator<ICountryInfo>, IDisposable
+    internal class CountryCollection : IEnumerable<ICountryInfo>, IEnumerator<ICountryInfo>, IDisposable
     {
         private readonly MyDBContext context;
         private IEnumerator<ICountryInfo> countries;
 
         internal CountryCollection(MyDBContext context)
-        {
-            this.context = context;
-        }
+            => this.context = context ?? throw new ArgumentNullException(nameof(context));
 
         ~CountryCollection() => Dispose();
 
