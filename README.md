@@ -8,6 +8,47 @@ git clone https://github.com/SGmuwa/CountryHRCrmguruRu
 cd CountryHRCrmguruRu
 dotnet test
 ```
+## Run console program (Ubuntu)
+### Clone
+```bash
+git clone https://github.com/SGmuwa/CountryHRCrmguruRu
+cd CountryHRCrmguruRu
+```
+### Launch SQL Server
+Start Microsoft SQL server. Replace PORT to port, PASSWORD to your password:
+```bash
+sudo docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=PASSWORD' -p PORT:1433 mcr.microsoft.com/mssql/server:2019-CU4-ubuntu-16.04
+```
+For example:
+```bash
+sudo docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=mypassword123!@#' -p 1433:1433 mcr.microsoft.com/mssql/server:2019-CU4-ubuntu-16.04
+```
+### Configure connection settings
+For client's side settings you must to edit `ConsoleCountry/appsettings.json`. For creator model you must also edit `DBCountriesSource/appsettings.json`. For example:
+```json
+{
+    "connectionStrings": {
+        "MyDBContext": "Server=127.0.0.1,1433;Database=Master;User Id=SA;Password=mypassword123!@#;"
+    }
+}
+```
+Where `127.0.0.1` — IP, `1433` — port, `mypassword123!@#` — password.
+### First load model to SQL Server
+For create first models run:
+```
+dotnet ef database update -p DBCountriesSource/
+```
+You can also get first model from [releases](https://github.com/SGmuwa/CountryHRCrmguruRu/releases).
+### Run app
+You can run app:
+```bash
+dotnet run -p ConsoleCountry/
+```
+You can use environments:
+```bash
+env ConnectionStrings:MyDBContext='Server=127.0.0.1,1402;Database=Master;User Id=SA;Password=mypassword123!@#;' dotnet run -p ConsoleCountry/
+```
+You can download binary from [releases](https://github.com/SGmuwa/CountryHRCrmguruRu/releases).
 # Customer requirements
 Requirements in a original language:
 
