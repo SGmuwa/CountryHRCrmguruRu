@@ -26,23 +26,26 @@ namespace DBCountriesSource
 {
     public static class BuilderDbContextOptions
     {
+        private const string fileJson = "appsettings.json";
+
         public static DbContextOptions BuildDbContextOptions(IConfiguration conf = null, DbContextOptionsBuilder builderDb = null)
         {
             if (conf == null)
             {
                 IConfigurationBuilder cb = new ConfigurationBuilder();
-                cb.AddEnvironmentVariables("COUNTRY_");
-                if (File.Exists("db.json"))
+                if (File.Exists(fileJson))
                 {
                     try
                     {
-                        cb.AddJsonFile("db.json");
+                        cb.AddJsonFile(fileJson);
                     }
                     catch (Exception e)
                     {
-                        Console.Error.WriteLine($"Can't open file db.json: {e}");
+                        Console.Error.WriteLine($"Can't open file {fileJson}: {e}");
                     }
+                    cb.AddEnvironmentVariables();
                 }
+                cb.AddEnvironmentVariables();
                 conf = cb.Build();
             }
             string connectionString = conf.GetConnectionString(nameof(MyDBContext));
@@ -50,8 +53,7 @@ namespace DBCountriesSource
                 builderDb = new DbContextOptionsBuilder();
             if (connectionString == null)
             {
-                Console.Error.WriteLine("Warning: You need to set DB options in db.json or in environments for DB. Using default...");
-                connectionString = "Server=127.0.0.1,1401;Database=Master;User Id=SA;Password=mypassword123!@#;";
+                throw new ApplicationException($"You need to set DB options in {fileJson} or in environment \"ConnectionStrings:{nameof(MyDBContext)}\" for DB.\nExample connection string for docker mssql: «Server=127.0.0.1,1433;Database=Master;User Id=SA;Password=mypassword123!@#;»");
             }
             return builderDb
                 .UseSqlServer(connectionString, providerOptions => providerOptions.CommandTimeout(60))

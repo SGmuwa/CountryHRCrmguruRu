@@ -12,11 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="db.json" />
+    <None Remove="appsettings.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="db.json">
+    <EmbeddedResource Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
