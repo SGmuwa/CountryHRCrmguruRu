@@ -40,13 +40,17 @@ dotnet ef database update -p DBCountriesSource/
 ```
 You can also get first model from [releases](https://github.com/SGmuwa/CountryHRCrmguruRu/releases).
 ### Run app
-You can run app:
+Change directory:
 ```bash
-dotnet run -p ConsoleCountry/
+cd ./ConsoleCountry/
+```
+Run app:
+```bash
+dotnet run
 ```
 You can use environments:
 ```bash
-env ConnectionStrings:MyDBContext='Server=127.0.0.1,1402;Database=Master;User Id=SA;Password=mypassword123!@#;' dotnet run -p ConsoleCountry/
+env ConnectionStrings:MyDBContext='Server=127.0.0.1,1433;Database=Master;User Id=SA;Password=mypassword123!@#;' dotnet run
 ```
 You can download binary from [releases](https://github.com/SGmuwa/CountryHRCrmguruRu/releases).
 # Customer requirements
